@@ -1,0 +1,41 @@
+export interface User {
+  id: string;
+  name: string | null;
+  email: string | null;
+  image: string | null;
+  created_at: string; // ISO timestamp
+  updated_at: string; // ISO timestamp
+}
+
+export interface Match {
+  id: string;
+  name: string | null;
+  match_date: string | null; // ISO timestamp
+  location_name: string | null;
+  location_link: string | null;
+  creator_id: string;
+  match_code: string | null;
+  visibility: string | null; // e.g. "public" | "private"
+  team_size: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Team {
+  id: string;
+  name: string | null;
+  match_id: string | null; // belongs to Match
+  color: string | null;
+  score: number | null;
+  creator_id: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Player {
+  id: string;
+  user_id: string | null; // belongs to User
+  team_id: string | null; // belongs to Team
+  created_at: string;
+  updated_at: string;
+}
