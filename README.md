@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Genesis
 
-## Getting Started
+Project Genesis is a web application that allows users to quickly organize and participate in popup football (soccer) matches. Users can create games, join teams, manage match settings, and track final scores — all through a simple and accessible interface.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🏟️ Match Management
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Create a football match with:
+  - Match name
+  - Date and time
+  - Location
+  - Public or private visibility
+- Automatically generated **unique match code** for private access
+- Optional team customization:
+  - Team sizes
+  - Team names
+  - Team colors
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 👥 Team Participation
 
-## Learn More
+- Users can:
+  - Add their team to a match
+  - Join existing teams
+  - Input the final score of the match
 
-To learn more about Next.js, take a look at the following resources:
+### 🌍 Location Options
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Enter a custom location name
+- Optionally provide a Google Maps link for easy navigation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📅 Creating a Match
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. User inputs:
+   - **Match name**
+   - **Date & time**
+   - **Location name** (Google Maps link optional)
+2. System creates the match
+3. A **unique match code** is displayed for private matches
+4. User may optionally:
+   - Define team sizes
+   - Assign team colors
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🔐 Public vs Private Matches
+
+### Public Matches
+
+- Visible to everyone
+- Any user can:
+  - Submit a team
+  - Join a team
+
+### Private Matches
+
+- Access restricted by **unique match code**
+- After entering the code, users may:
+  - Add a team
+  - Join a team
+
+---
+
+## 🔗 Joining Matches
+
+_To be expanded in future documentation._  
+Users will have a streamlined flow for entering match codes or browsing public matches.
+
+---
+
+## 🔍 Reference & Inspiration
+
+Consider exploring:  
+https://pickuphub.net/
+
+This platform offers useful patterns and ideas for organizing community sports activities.
+
+---
+
+## 📌 Future Improvements (Suggestions)
+
+- Match chat or comments
+- Player profiles & stats
+- Real-time updates (scores, team changes)
+- Notifications for match changes
+- Integration with map APIs for selecting locations visually
+
+---
+
+## 📄 License
+
+_To be defined._
