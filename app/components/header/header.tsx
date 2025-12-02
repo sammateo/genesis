@@ -4,12 +4,16 @@ import { SignOut } from "../auth/sign-out";
 import Link from "next/link";
 
 const Header = async () => {
+  const session = await auth();
   return (
     <header className="bg-white w-full flex justify-center">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex h-16 items-center justify-between w-full">
           <div className="md:flex md:items-center md:gap-12">
-            <Link className="block text-teal-600" href="/">
+            <Link
+              className="block text-teal-600"
+              href={session?.user ? "/matches" : "/"}
+            >
               <span className="sr-only">Home</span>
               <svg
                 className="h-8"
@@ -93,12 +97,12 @@ const Header = async () => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <a
+              <Link
                 className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm"
-                href="#"
+                href="/account/profile"
               >
                 Profile
-              </a>
+              </Link>
 
               <div className="hidden sm:flex">
                 <SignOut />
@@ -113,11 +117,11 @@ const Header = async () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M4 6h16M4 12h16M4 18h16"
                   ></path>
                 </svg>

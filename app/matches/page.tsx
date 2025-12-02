@@ -4,6 +4,8 @@ import Header from "../components/header/header";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Match } from "@/types/data-types";
+import Link from "next/link";
+import { FaPlus } from "react-icons/fa6";
 
 const page = async () => {
   const session = await auth();
@@ -21,9 +23,14 @@ const page = async () => {
   return (
     <div>
       <Header />
-
-      {matches && (
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="flex justify-end my-4">
+          <button className="fcursor-pointer flex items-center gap-2 rounded border border-indigo-600 bg-indigo-600 px-5 py-2 font-medium text-white shadow-sm transition-colors hover:bg-indigo-700">
+            <FaPlus />
+            New Match
+          </button>
+        </div>
+        {matches && (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {matches.map((match) => (
               <article
@@ -50,10 +57,13 @@ const page = async () => {
                     </strong>
 
                     <h3 className="mt-4 text-lg font-medium sm:text-xl">
-                      <a href="#" className="hover:underline">
+                      <Link
+                        href={`/matches/${match.id}`}
+                        className="hover:underline"
+                      >
                         {" "}
                         Team A vs Team B{" "}
-                      </a>
+                      </Link>
                     </h3>
 
                     <p className="mt-1 text-sm text-gray-700">
@@ -73,9 +83,9 @@ const page = async () => {
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                           ></path>
                         </svg>
@@ -96,9 +106,9 @@ const page = async () => {
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                           ></path>
                         </svg>
@@ -111,8 +121,8 @@ const page = async () => {
               </article>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
