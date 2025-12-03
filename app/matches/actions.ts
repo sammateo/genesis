@@ -71,11 +71,8 @@ export const createMatch = async (
     created_at: "",
     updated_at: "",
   };
-  console.log(rawFormData);
 
-  //TODO: validate form
-
-  const { data, error } = await supabase
+  const { data: matchData, error } = await supabase
     .from("match")
     .insert([
       {
@@ -92,7 +89,6 @@ export const createMatch = async (
     .select();
 
   if (error) {
-    //TODO: handle error
     console.error(error);
     return {
       success: false,
@@ -100,21 +96,64 @@ export const createMatch = async (
       message: "Error saving new match",
     };
   }
+  let savedMatchData = matchData as Match[];
 
-  if (data) {
-    console.log(data);
-    const savedMatchData = data as Match[];
-    if (savedMatchData && savedMatchData[0] && savedMatchData[0].id) {
-      redirect(`/matches/${savedMatchData[0].id}`);
-    }
+  //create teams
+
+  //create team a
+  const { data: teamAData, error: teamAError } = await supabase
+    .from("team")
+    .insert([
+      {
+        name: "Team A",
+        match_id: savedMatchData[0].id,
+        color: "white",
+        score: null,
+        creator_id: rawFormData.creator_id,
+      },
+    ])
+    .select();
+
+  if (teamAError) {
+    console.error(teamAError);
+    return {
+      success: false,
+      errors: null,
+      message: "Error creating team A",
+    };
   }
-  revalidatePath("/posts");
+
+  //create team b
+  const { data: teamBData, error: teamBError } = await supabase
+    .from("team")
+    .insert([
+      {
+        name: "Team B",
+        match_id: savedMatchData[0].id,
+        color: "black",
+        score: null,
+        creator_id: rawFormData.creator_id,
+      },
+    ])
+    .select();
+
+  if (teamBError) {
+    console.error(teamBError);
+    return {
+      success: false,
+      errors: null,
+      message: "Error creating team B",
+    };
+  }
+
+  if (savedMatchData && savedMatchData[0] && savedMatchData[0].id) {
+    revalidatePath("/matches");
+    redirect(`/matches/${savedMatchData[0].id}`);
+  }
 
   return {
     success: true,
     errors: null,
     message: "",
   };
-
-  //
 };
