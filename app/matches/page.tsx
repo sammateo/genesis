@@ -14,7 +14,10 @@ const page = async () => {
   }
   const supabase = await createClient();
   let matches: Match[];
-  let { data, error } = await supabase.from("match").select("*");
+  let { data, error } = await supabase
+    .from("match")
+    .select("*")
+    .eq("creator_id", session.user.id);
   if (error) {
     console.error(error);
     return <div>An error occurred</div>;
