@@ -20,43 +20,6 @@ const initialState: Match = {
   updated_at: "",
 };
 
-// export interface NewMatchValidationState {
-//   success: boolean;
-//   errors: {
-//     name?:
-//       | {
-//           errors: string[];
-//         }
-//       | undefined;
-//     match_date?:
-//       | {
-//           errors: string[];
-//         }
-//       | undefined;
-//     location_name?:
-//       | {
-//           errors: string[];
-//         }
-//       | undefined;
-//     location_link?:
-//       | {
-//           errors: string[];
-//         }
-//       | undefined;
-//     visibility?:
-//       | {
-//           errors: string[];
-//         }
-//       | undefined;
-//     team_size?:
-//       | {
-//           errors: string[];
-//         }
-//       | undefined;
-//   };
-//   message: string;
-// }
-
 const NewMatchForm = () => {
   const [state, formAction, pending] = useActionState(createMatch, {
     success: false,

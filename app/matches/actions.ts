@@ -3,10 +3,12 @@
 import { auth } from "@/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Match } from "@/types/data-types";
+import { MatchResponse } from "@/types/extended-data-types";
 import { randomBytes } from "crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { da } from "zod/v4/locales";
 
 const generateMatchCode = () => {
   return randomBytes(8).toString("hex").slice(0, 8).toUpperCase();
@@ -107,7 +109,7 @@ export const createMatch = async (
       {
         name: "Team A",
         match_id: savedMatchData[0].id,
-        color: "white",
+        color: "FFFFFF",
         score: null,
         creator_id: rawFormData.creator_id,
       },
@@ -130,7 +132,7 @@ export const createMatch = async (
       {
         name: "Team B",
         match_id: savedMatchData[0].id,
-        color: "black",
+        color: "000000",
         score: null,
         creator_id: rawFormData.creator_id,
       },
@@ -156,4 +158,61 @@ export const createMatch = async (
     errors: null,
     message: "",
   };
+};
+
+export const getMatchDetails = async (
+  matchId: string
+): Promise<MatchResponse> => {
+  const session = await auth();
+  if (!session || !session.user) {
+    return null;
+  }
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("match")
+    .select(
+      `
+    id,
+    name,
+    match_date,
+    location_name,
+    location_link,
+    match_code,
+    visibility,
+    team_size,
+    created_at,
+    updated_at,
+    creator_id,
+    teams:team (
+      id,
+      name,
+      color,
+      score,
+      creator_id,
+      match_id,
+      created_at,
+      updated_at,
+      players:player (
+        id,
+        user_id,
+        created_at,
+        updated_at,
+        team_id,
+        user:users (
+          id,
+          name,
+          email,
+          image
+        )
+      )
+    )
+  `
+    )
+    .eq("id", matchId)
+    .single();
+  if (error) {
+    console.error(error);
+  }
+  return data;
 };

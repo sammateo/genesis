@@ -1,3 +1,4 @@
+import SecondaryButton from "@/app/ui/button/secondary-button";
 import { signOut } from "@/auth";
 
 export function SignOut() {
@@ -8,12 +9,7 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <button
-        className="cursor-pointer rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-        type="submit"
-      >
-        Sign Out
-      </button>
+      <SecondaryButton label="Sign Out" type="submit" />
     </form>
   );
 }

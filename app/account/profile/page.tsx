@@ -17,6 +17,7 @@ const page = async () => {
           alt={session.user.name || "profile photo"}
         />
         <p className="text-2xl font-medium">{session.user.name}</p>
+        <p className="text-2xl font-medium">{session.user.email}</p>
       </div>
     </div>
   );
