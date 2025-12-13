@@ -3,22 +3,7 @@ import { FaLink } from "react-icons/fa6";
 import { LuMapPin } from "react-icons/lu";
 import Form from "next/form";
 import { useActionState } from "react";
-import { Match } from "@/types/data-types";
 import { createMatch } from "@/app/matches/actions";
-
-const initialState: Match = {
-  id: "",
-  name: null,
-  match_date: null,
-  location_name: null,
-  location_link: null,
-  creator_id: "",
-  match_code: null,
-  visibility: null,
-  team_size: null,
-  created_at: "",
-  updated_at: "",
-};
 
 const NewMatchForm = () => {
   const [state, formAction, pending] = useActionState(createMatch, {
@@ -208,6 +193,82 @@ const NewMatchForm = () => {
                 ))}
               </div>
             )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <div>
+                {" "}
+                <label
+                  className="block text-sm font-medium text-gray-900"
+                  htmlFor="team_a_name"
+                >
+                  Team A
+                </label>
+                <input
+                  className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-2"
+                  id="team_a_name"
+                  name="team_a_name"
+                  type="text"
+                  placeholder="Team A"
+                  required
+                />
+              </div>
+              <div>
+                {" "}
+                <label
+                  className="block text-sm font-medium text-gray-900"
+                  htmlFor="team_a_color"
+                >
+                  Color
+                </label>
+                <input
+                  className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-1"
+                  id="team_a_color"
+                  name="team_a_color"
+                  type="color"
+                  required
+                  defaultValue={"#FFFFFF"}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                {" "}
+                <label
+                  className="block text-sm font-medium text-gray-900"
+                  htmlFor="team_b_name"
+                >
+                  Team B
+                </label>
+                <input
+                  className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-2"
+                  id="team_b_name"
+                  name="team_b_name"
+                  type="text"
+                  placeholder="Team B"
+                  required
+                />
+              </div>
+              <div>
+                {" "}
+                <label
+                  className="block text-sm font-medium text-gray-900"
+                  htmlFor="team_b_color"
+                >
+                  Color
+                </label>
+                <input
+                  className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-1"
+                  id="team_b_color"
+                  name="team_b_color"
+                  type="color"
+                  required
+                  defaultValue={"#000000"}
+                />
+              </div>
+            </div>
           </div>
 
           <div>

@@ -100,7 +100,17 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
               <span className="font-medium text-md">
                 {completeData.match_code}
               </span>
-              <span className="block">{completeData.match_date}</span>
+              <span className="font-medium text-md">
+                {completeData.team_size !== null &&
+                completeData.team_size !== undefined
+                  ? `${completeData.team_size} players / team`
+                  : "no team size specified"}
+              </span>
+              <span className="block">
+                {completeData && completeData.match_date
+                  ? new Date(completeData.match_date).toLocaleString()
+                  : "no match date specified"}
+              </span>
             </div>
             {/* Teams and Players */}
             <div className="grid grid-cols-2">

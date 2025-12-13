@@ -34,6 +34,10 @@ const newMatchSchema = z.object({
   location_link: z.string(),
   visibility: z.enum(["private", "public"]),
   team_size: z.coerce.number(),
+  team_a_name: z.string(),
+  team_a_color: z.string(),
+  team_b_name: z.string(),
+  team_b_color: z.string(),
 });
 
 export const createMatch = async (
@@ -101,15 +105,20 @@ export const createMatch = async (
   let savedMatchData = matchData as Match[];
 
   //create teams
-
+  const teamData = {
+    team_a_name: formData.get("team_a_name")?.valueOf() as string,
+    team_a_color: formData.get("team_a_color")?.valueOf() as string,
+    team_b_name: formData.get("team_b_name")?.valueOf() as string,
+    team_b_color: formData.get("team_b_color")?.valueOf() as string,
+  };
   //create team a
   const { data: teamAData, error: teamAError } = await supabase
     .from("team")
     .insert([
       {
-        name: "Team A",
+        name: teamData.team_a_name?.trim() || "Team A",
         match_id: savedMatchData[0].id,
-        color: "FFFFFF",
+        color: teamData.team_a_color?.trim().replace("#", "") || "FFFFFF",
         score: null,
         creator_id: rawFormData.creator_id,
       },
@@ -130,9 +139,9 @@ export const createMatch = async (
     .from("team")
     .insert([
       {
-        name: "Team B",
+        name: teamData.team_b_name?.trim() || "Team B",
         match_id: savedMatchData[0].id,
-        color: "000000",
+        color: teamData.team_b_color?.trim().replace("#", "") || "000000",
         score: null,
         creator_id: rawFormData.creator_id,
       },
