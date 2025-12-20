@@ -3,9 +3,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getMatchDetails } from "../actions";
 import { TeamWithPlayers } from "@/types/extended-data-types";
-import PrimaryButton from "@/app/ui/button/primary-button";
 import JoinTeam from "@/app/components/team/join-team";
-import { Team } from "@/types/data-types";
 import LeaveTeam from "@/app/components/team/leave-team";
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -113,7 +111,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
               </span>
             </div>
             {/* Teams and Players */}
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               {completeData.teams &&
                 completeData.teams.map((team) => (
                   <div key={team.id} className="">

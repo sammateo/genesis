@@ -4,8 +4,11 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Match } from "@/types/data-types";
 import Link from "next/link";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaRegEyeSlash } from "react-icons/fa6";
 import PrimaryLink from "../ui/link/primary-link";
+import { LuMapPin } from "react-icons/lu";
+import { MatchWithSimpleTeams } from "@/types/extended-data-types";
+import { MdOutlinePublic } from "react-icons/md";
 
 const page = async () => {
   const session = await auth();
@@ -13,16 +16,43 @@ const page = async () => {
     redirect("/");
   }
   const supabase = await createClient();
-  let matches: Match[];
+  let matches: MatchWithSimpleTeams[];
   let { data, error } = await supabase
     .from("match")
-    .select("*")
-    .eq("creator_id", session.user.id);
+    .select(
+      `
+      id,
+    name,
+    match_date,
+    location_name,
+    location_link,
+    match_code,
+    visibility,
+    team_size,
+    created_at,
+    updated_at,
+    creator_id,
+    teams:team (
+      id,
+      name,
+      color,
+      score,
+      creator_id,
+      match_id,
+      created_at,
+      updated_at
+    )
+      `
+    )
+    .eq("creator_id", session.user.id)
+    .order("match_date", {
+      ascending: false,
+    });
   if (error) {
     console.error(error);
     return <div>An error occurred</div>;
   }
-  matches = data as Match[];
+  matches = data as MatchWithSimpleTeams[];
   return (
     <div>
       <Header />
@@ -35,13 +65,6 @@ const page = async () => {
                 href={"/matches/new"}
                 Icon={FaPlus}
               />
-              {/* <Link
-                
-                className="fcursor-pointer flex items-center gap-2 rounded border border-blue-600 bg-blue-600 px-5 py-2 font-medium text-white shadow-sm transition-colors hover:bg-blue-700"
-              >
-                <FaPlus />
-                New Match
-              </Link> */}
             </div>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               {matches.map((match) => (
@@ -67,14 +90,26 @@ const page = async () => {
                       <strong className="rounded-sm border border-blue-500 bg-blue-500 px-3 py-1.5 text-[10px] font-medium text-white">
                         {match.name}
                       </strong>
-
-                      <h3 className="mt-4 text-lg font-medium sm:text-xl">
+                      <div className="text-xs text-gray-500 my-2">
+                        {match.visibility === "public" ? (
+                          <div className="flex items-center gap-1">
+                            <MdOutlinePublic />
+                            <span>public</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-1">
+                            <FaRegEyeSlash />
+                            <span>private</span>
+                          </div>
+                        )}
+                      </div>
+                      <h3 className="text-lg font-medium sm:text-xl">
                         <Link
                           href={`/matches/${match.id}`}
                           className="hover:underline"
                         >
                           {" "}
-                          Team A vs Team B{" "}
+                          {match.teams[0].name} vs {match.teams[1].name}{" "}
                         </Link>
                       </h3>
 
@@ -101,7 +136,8 @@ const page = async () => {
                           </svg>
 
                           <p className="text-xs font-medium">
-                            match date & time
+                            {match.match_date &&
+                              new Date(match.match_date).toLocaleString()}
                           </p>
                         </div>
 
@@ -110,22 +146,20 @@ const page = async () => {
                         </span>
 
                         <div className="flex items-center gap-1 text-gray-500">
-                          <svg
-                            className="size-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            ></path>
-                          </svg>
+                          <LuMapPin />
 
-                          <p className="text-xs font-medium">match location</p>
+                          {match.location_link ? (
+                            <a
+                              href={match.location_link}
+                              className="text-xs font-medium"
+                            >
+                              {match.location_name}
+                            </a>
+                          ) : (
+                            <p className="text-xs font-medium">
+                              {match.location_name}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>

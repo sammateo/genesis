@@ -66,7 +66,7 @@ const NewMatchForm = () => {
               placeholder="Match name"
               required
             />
-            {state?.errors?.name && (
+            {/* {state?.errors?.name && (
               <div>
                 {state?.errors?.name?.errors.map((error: string) => (
                   <span key={error} className="text-red-700">
@@ -74,7 +74,7 @@ const NewMatchForm = () => {
                   </span>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
 
           <div>
@@ -93,7 +93,7 @@ const NewMatchForm = () => {
               placeholder="Match date"
               required
             />
-            {state?.errors?.match_date && (
+            {/* {state?.errors?.match_date && (
               <div>
                 {state?.errors?.match_date?.errors.map((error: string) => (
                   <span key={error} className="text-red-700">
@@ -101,7 +101,7 @@ const NewMatchForm = () => {
                   </span>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
 
           <div>
@@ -125,7 +125,7 @@ const NewMatchForm = () => {
                 required
               />
             </div>
-            {state?.errors?.location_name && (
+            {/* {state?.errors?.location_name && (
               <div>
                 {state?.errors?.location_name?.errors.map((error: string) => (
                   <span key={error} className="text-red-700">
@@ -133,7 +133,7 @@ const NewMatchForm = () => {
                   </span>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
 
           <div>
@@ -156,7 +156,7 @@ const NewMatchForm = () => {
                 placeholder="Location pin"
               />
             </div>
-            {state?.errors?.location_link && (
+            {/* {state?.errors?.location_link && (
               <div>
                 {state?.errors?.location_link?.errors.map((error: string) => (
                   <span key={error} className="text-red-700">
@@ -164,7 +164,7 @@ const NewMatchForm = () => {
                   </span>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
 
           <div>
@@ -184,7 +184,7 @@ const NewMatchForm = () => {
               placeholder="Team sizes"
               min={1}
             />
-            {state?.errors?.team_size && (
+            {/* {state?.errors?.team_size && (
               <div>
                 {state?.errors?.team_size?.errors.map((error: string) => (
                   <span key={error} className="text-red-700">
@@ -192,7 +192,7 @@ const NewMatchForm = () => {
                   </span>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
 
           <div className="grid grid-cols-2 gap-2">
@@ -287,7 +287,7 @@ const NewMatchForm = () => {
               <option value="private">Private</option>
               <option value="public">Public</option>
             </select>
-            {state?.errors?.visibility && (
+            {/* {state?.errors?.visibility && (
               <div>
                 {state?.errors?.visibility?.errors.map((error: string) => (
                   <span key={error} className="text-red-700">
@@ -295,7 +295,7 @@ const NewMatchForm = () => {
                   </span>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
 
           <button

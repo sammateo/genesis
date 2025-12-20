@@ -15,7 +15,7 @@ export interface Match {
   location_link: string | null;
   creator_id: string;
   match_code: string | null;
-  visibility: string | null; // e.g. "public" | "private"
+  visibility: "public" | "private" | null; // e.g. "public" | "private"
   team_size: number | null;
   created_at: string;
   updated_at: string;
