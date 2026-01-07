@@ -9,6 +9,8 @@ import PrimaryLink from "../ui/link/primary-link";
 import { LuMapPin } from "react-icons/lu";
 import { MatchWithSimpleTeams } from "@/types/extended-data-types";
 import { MdOutlinePublic } from "react-icons/md";
+import { HiSearch } from "react-icons/hi";
+import SecondaryLink from "../ui/link/secondary-link";
 
 const page = async () => {
   const session = await auth();
@@ -59,7 +61,12 @@ const page = async () => {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {matches && matches.length > 0 ? (
           <>
-            <div className="flex justify-end my-4">
+            <div className="flex justify-end gap-5 flex-wrap my-4">
+              <SecondaryLink
+                label="Join Match"
+                href={"/matches/join"}
+                Icon={HiSearch}
+              />
               <PrimaryLink
                 label="New Match"
                 href={"/matches/new"}
@@ -190,16 +197,14 @@ const page = async () => {
             </h2>
 
             <p className="mt-4 text-pretty text-gray-700">
-              Get started by creating your first match. It only takes a few
-              seconds.
+              Get started by creating or joining your first match. It only takes
+              a few seconds.
             </p>
 
-            <Link
-              href={"/matches/new"}
-              className="mt-6 block w-full rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-            >
-              Create Match
-            </Link>
+            <div className="mt-6 flex flex-col gap-2">
+              <PrimaryLink label={"Create Match"} href={"/matches/new"} />
+              <SecondaryLink label={"Join Match"} href={"/matches/join"} />
+            </div>
           </div>
         )}
       </div>

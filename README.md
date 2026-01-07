@@ -22,7 +22,6 @@ Project Genesis is a web application that allows users to quickly organize and p
 ### 👥 Team Participation
 
 - Users can:
-  - Add their team to a match
   - Join existing teams
   - Input the final score of the match
 

@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import SignIn from "../auth/sign-in";
+import SecondaryLink from "@/app/ui/link/secondary-link";
 
 const HomeLanding = async () => {
   const session = await auth();
@@ -22,13 +23,7 @@ const HomeLanding = async () => {
 
           <div className="mt-4 flex gap-4 sm:mt-6">
             <SignIn />
-
-            <a
-              className="inline-block rounded border border-gray-200 px-5 py-3 font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 hover:text-gray-900"
-              href="#"
-            >
-              Learn More
-            </a>
+            <SecondaryLink label={"Learn More"} href={"#"} />
           </div>
         </div>
 

@@ -4,6 +4,7 @@ import { LuMapPin } from "react-icons/lu";
 import Form from "next/form";
 import { useActionState } from "react";
 import { createMatch } from "@/app/matches/actions";
+import SecondaryLink from "@/app/ui/link/secondary-link";
 
 const NewMatchForm = () => {
   const [state, formAction, pending] = useActionState(createMatch, {
@@ -307,6 +308,7 @@ const NewMatchForm = () => {
           >
             {pending ? "Loading.." : "Submit"}
           </button>
+          <SecondaryLink label={"Cancel"} href={"/matches"} />
         </Form>
       )}
     </div>

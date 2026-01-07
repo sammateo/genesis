@@ -1,3 +1,4 @@
+import { SignOut } from "@/app/components/auth/sign-out";
 import Header from "@/app/components/header/header";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -18,6 +19,7 @@ const page = async () => {
         />
         <p className="text-2xl font-medium">{session.user.name}</p>
         <p className="text-2xl font-medium">{session.user.email}</p>
+        <SignOut />
       </div>
     </div>
   );
