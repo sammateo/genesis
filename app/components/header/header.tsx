@@ -31,11 +31,11 @@ const Header = async () => {
               </div>
             </div>
 
-            <div className="block md:hidden">
+            {/* <div className="block md:hidden">
               <button className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
                 <IoMenuOutline />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

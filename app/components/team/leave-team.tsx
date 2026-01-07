@@ -1,8 +1,11 @@
+"use client";
 import SecondaryButton from "@/app/ui/button/secondary-button";
-import { auth } from "@/auth";
-import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
-
+import { leaveTeamAction } from "./actions";
+import { useActionState } from "react";
+const initialState = {
+  success: false,
+  message: "",
+};
 const LeaveTeam = ({
   matchId,
   teamId,
@@ -10,29 +13,14 @@ const LeaveTeam = ({
   matchId: string;
   teamId: string;
 }) => {
+  const LeaveTeamWithId = leaveTeamAction.bind(null, { matchId, teamId });
+  const [state, formAction, pending] = useActionState(
+    LeaveTeamWithId,
+    initialState
+  );
   return (
-    <form
-      action={async () => {
-        "use server";
-        const session = await auth();
-        if (!session || !session.user) {
-          return;
-        }
-        const supabase = await createClient();
-        // new player record with team id and user id
-
-        const { error } = await supabase
-          .from("player")
-          .delete()
-          .eq("team_id", teamId)
-          .eq("user_id", session.user.id);
-        if (error) {
-          console.error(error);
-        }
-        revalidatePath(`/matches/${matchId}`);
-      }}
-    >
-      <SecondaryButton type="submit" label="Leave Team" />
+    <form action={formAction}>
+      <SecondaryButton loading={pending} type="submit" label="Leave Team" />
     </form>
   );
 };

@@ -72,7 +72,10 @@ export const createMatch = async (
     location_link: formData.get("location_link")?.valueOf() as string,
     creator_id: session.user.id,
     match_code: generateMatchCode(),
-    visibility: formData.get("visibility")?.valueOf() as string,
+    visibility: formData.get("visibility")?.valueOf() as
+      | "public"
+      | "private"
+      | null,
     team_size: formData.get("team_size")?.valueOf() as number | null,
     created_at: "",
     updated_at: "",

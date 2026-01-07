@@ -1,12 +1,30 @@
+import StandardLoadingIcon from "../loaders/StandardLoadingIcon";
 import { ButtonInterface } from "./primary-button";
 
-const SecondaryButton = ({ label, type = "button", Icon }: ButtonInterface) => {
+const SecondaryButton = ({
+  label,
+  type = "button",
+  Icon,
+  pill,
+  loading,
+}: ButtonInterface) => {
   return (
     <button
-      className="flex items-center gap-2 cursor-pointer rounded-md bg-gray-100 px-5 py-2 font-medium text-blue-600"
+      disabled={loading}
+      className={`flex items-center gap-2  
+        ${pill ? "rounded-full" : "rounded-md"}
+        border
+        ${
+          loading
+            ? "bg-gray-100 text-blue-900 border-blue-900"
+            : "bg-gray-100 text-blue-600 border-blue-600 cursor-pointer"
+        }
+          px-5 py-2 font-medium `}
       type={type}
     >
-      {Icon && <Icon />}
+      {loading && <StandardLoadingIcon />}
+
+      {Icon && !loading && <Icon />}
       {label}
     </button>
   );

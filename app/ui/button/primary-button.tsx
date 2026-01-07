@@ -1,8 +1,11 @@
+import StandardLoadingIcon from "../loaders/StandardLoadingIcon";
+
 export interface ButtonInterface {
   Icon?: React.ElementType;
   label: string;
   type?: "submit" | "reset" | "button" | undefined;
   pill?: boolean;
+  loading?: boolean;
 }
 
 const PrimaryButton = ({
@@ -10,15 +13,22 @@ const PrimaryButton = ({
   label,
   type = "button",
   pill,
+  loading,
 }: ButtonInterface) => {
   return (
     <button
-      className={`flex items-center gap-2 cursor-pointer ${
+      disabled={loading}
+      className={`flex items-center gap-2  ${
         pill ? "rounded-full" : "rounded"
-      } border border-blue-600 bg-blue-600 px-5 py-2 font-medium text-white shadow-sm transition-colors hover:bg-blue-700`}
+      } border  ${
+        loading
+          ? "bg-gray-100 text-blue-900 border-blue-900"
+          : "text-white bg-blue-600 hover:bg-blue-700 border-blue-600 cursor-pointer"
+      } px-5 py-2 font-medium  shadow-sm transition-colors `}
       type={type}
     >
-      {Icon && <Icon />}
+      {loading && <StandardLoadingIcon />}
+      {Icon && !loading && <Icon />}
       {label}
     </button>
   );

@@ -1,36 +1,21 @@
+"use client";
 import PrimaryButton from "@/app/ui/button/primary-button";
-import { auth } from "@/auth";
-import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
-
+import { joinTeamAction } from "./actions";
+import { useActionState } from "react";
+const initialState = {
+  success: false,
+  message: "",
+};
 const JoinTeam = ({ matchId, teamId }: { matchId: string; teamId: string }) => {
+  const JoinTeamWithId = joinTeamAction.bind(null, { matchId, teamId });
+  const [state, formAction, pending] = useActionState(
+    JoinTeamWithId,
+    initialState
+  );
+
   return (
-    <form
-      action={async () => {
-        "use server";
-        const session = await auth();
-        if (!session || !session.user) {
-          return;
-        }
-        const supabase = await createClient();
-        // new player record with team id and user id
-
-        const { data, error } = await supabase
-          .from("player")
-          .insert([{ user_id: session.user.id, team_id: teamId }])
-          .select();
-
-        if (error) {
-          console.error(error);
-        }
-        if (data) {
-          revalidatePath(`/matches/${matchId}`);
-        }
-
-        //revalidate match path
-      }}
-    >
-      <PrimaryButton type="submit" label="Join Team" />
+    <form action={formAction}>
+      <PrimaryButton loading={pending} type="submit" label="Join Team" />
     </form>
   );
 };
