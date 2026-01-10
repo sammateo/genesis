@@ -22,7 +22,7 @@ const FindMatchForm = () => {
       <input
         id="match_code"
         name="match_code"
-        className="border-2 border-blue-900 outline-none px-5 py-3 rounded-full mx-auto w-full max-w-2xl transition-shadow duration-300 ease-in-out focus:shadow-xl shadow-blue-200"
+        className="border-2 border-blue-900 uppercase placeholder:capitalize outline-none px-5 py-3 rounded-full mx-auto w-full max-w-2xl transition-shadow duration-300 ease-in-out focus:shadow-xl shadow-blue-200"
         type="text"
         placeholder="match code"
         required

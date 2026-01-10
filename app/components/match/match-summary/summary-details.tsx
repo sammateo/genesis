@@ -24,7 +24,7 @@ const SummaryDetails = ({ completeData }: { completeData: MatchWithTeams }) => {
         completeData.teams[1].score || "0"
       }`,
     },
-    { title: "Size", data: `${completeData.team_size}` },
+    { title: "Size", data: `${completeData.team_size || "not specified"}` },
   ];
   return (
     <div className="flow-root">

@@ -41,7 +41,7 @@ export const findMatch = async (_: any, formData: FormData): Promise<any> => {
     creator_id
   `
     )
-    .eq("match_code", rawData.match_code)
+    .eq("match_code", rawData.match_code.trim().toLocaleUpperCase())
     .single();
   if (error) {
     console.error(error);
