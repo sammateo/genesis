@@ -352,6 +352,9 @@ export const getMatchesForUser = async (): Promise<MatchResponse[] | null> => {
     .in("id", [
       ...(playerMatchesForUser?.map((pMatch) => pMatch.id) || []),
       ...(creatorMatchesForUser?.map((cMatch) => cMatch.id) || []),
-    ]);
+    ])
+    .order("match_date", {
+      ascending: false,
+    });
   return data;
 };

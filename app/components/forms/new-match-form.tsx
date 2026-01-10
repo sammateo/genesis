@@ -286,7 +286,7 @@ const NewMatchForm = () => {
               name="visibility"
             >
               <option value="private">Private</option>
-              <option value="public">Public</option>
+              {/* <option value="public">Public</option> */}
             </select>
             {/* {state?.errors?.visibility && (
               <div>
