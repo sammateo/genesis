@@ -13,7 +13,7 @@ const MatchOverview = ({
   const teamA = completeData.teams[0];
   const teamB = completeData.teams[1];
   return (
-    <div className="flex justify-between items-center">
+    <div className="grid grid-cols-3 items-center">
       <div className="flex flex-col items-center">
         <TeamName name={teamA.name || ""} color={teamA.color || ""} />
         {canUserJoinTeam(completeData, teamA, user_id) && (
@@ -22,8 +22,8 @@ const MatchOverview = ({
           </div>
         )}
       </div>
-      <div className="flex flex-col items-center gap-2">
-        <span className="text-sm">
+      <div className="flex flex-col items-center gap-2 text-center">
+        <span className="text-sm font-semibold">
           {completeData.match_date
             ? new Date(completeData.match_date).toLocaleString()
             : "no match date specified"}

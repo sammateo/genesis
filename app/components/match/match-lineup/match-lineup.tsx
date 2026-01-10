@@ -12,6 +12,7 @@ const MatchLineup = ({
   const lineUpData: AccordionInterface = {
     summaryText: `Lineup - ${team.name}`,
     details: <LineupDetails team={team} user_id={user_id} />,
+    defaultOpen: true,
   };
   return (
     <div>
