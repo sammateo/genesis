@@ -6,6 +6,7 @@ export interface ButtonInterface {
   type?: "submit" | "reset" | "button" | undefined;
   pill?: boolean;
   loading?: boolean;
+  onClick?: () => void;
 }
 
 const PrimaryButton = ({
@@ -14,9 +15,11 @@ const PrimaryButton = ({
   type = "button",
   pill,
   loading,
+  onClick,
 }: ButtonInterface) => {
   return (
     <button
+      onClick={onClick}
       disabled={loading}
       className={`flex items-center gap-2  ${
         pill ? "rounded-full" : "rounded"

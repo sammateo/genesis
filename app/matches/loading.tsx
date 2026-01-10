@@ -1,5 +1,4 @@
 import StandardLoadingIcon from "@/app/ui/loaders/StandardLoadingIcon";
-import React from "react";
 import { GiSoccerKick } from "react-icons/gi";
 
 const Loading = () => {

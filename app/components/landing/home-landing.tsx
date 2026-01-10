@@ -23,7 +23,7 @@ const HomeLanding = async () => {
 
           <div className="mt-4 flex gap-4 sm:mt-6">
             <SignIn />
-            <SecondaryLink label={"Learn More"} href={"#"} />
+            <SecondaryLink label={"Learn More"} href={"#learnmore"} />
           </div>
         </div>
 

@@ -1,16 +1,10 @@
 import { auth } from "@/auth";
 import Header from "../components/header/header";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { Match } from "@/types/data-types";
 import Link from "next/link";
 import { FaPlus, FaRegEyeSlash } from "react-icons/fa6";
 import PrimaryLink from "../ui/link/primary-link";
 import { LuMapPin } from "react-icons/lu";
-import {
-  MatchResponse,
-  MatchWithSimpleTeams,
-} from "@/types/extended-data-types";
 import { MdOutlinePublic } from "react-icons/md";
 import { HiSearch } from "react-icons/hi";
 import SecondaryLink from "../ui/link/secondary-link";
@@ -44,7 +38,7 @@ const page = async () => {
               {matches.map((match) => (
                 <article
                   key={match.id}
-                  className="rounded-xl bg-white p-4 ring-3 ring-blue-50 sm:p-6 lg:p-8"
+                  className="rounded-xl bg-white p-4 ring-3 ring-blue-50 sm:p-6 lg:p-8 transition-shadow duration-200 ease-in-out hover:shadow-lg"
                 >
                   <div className="flex items-start sm:gap-8">
                     <div
