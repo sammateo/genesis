@@ -6,6 +6,7 @@ import { MatchWithTeams, TeamWithPlayers } from "@/types/extended-data-types";
 import MatchOverview from "@/app/components/match/match-overview/match-overview";
 import MatchSummary from "@/app/components/match/match-summary/match-summary";
 import MatchLineup from "@/app/components/match/match-lineup/match-lineup";
+import CreatorControls from "@/app/components/match/creator-controls/creator-controls";
 
 const isTeamFull = (
   completeData: MatchWithTeams | null,
@@ -97,7 +98,11 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
         <Header />
       </div>
 
-      {!completeData && <div></div>}
+      {!completeData && (
+        <div>
+          <h2>Match Not Found</h2>
+        </div>
+      )}
 
       {/* Match Overview */}
 
@@ -124,6 +129,9 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                   user_id={session.user.id}
                 />
               </div>
+              {completeData.creator_id === session.user.id && (
+                <CreatorControls completeData={completeData} />
+              )}
             </div>
           </div>
         </div>

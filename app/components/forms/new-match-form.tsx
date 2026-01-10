@@ -5,6 +5,7 @@ import Form from "next/form";
 import { useActionState } from "react";
 import { createMatch } from "@/app/matches/actions";
 import SecondaryLink from "@/app/ui/link/secondary-link";
+import { GiSoccerKick } from "react-icons/gi";
 
 const NewMatchForm = () => {
   const [state, formAction, pending] = useActionState(createMatch, {
@@ -16,10 +17,11 @@ const NewMatchForm = () => {
   return (
     <div>
       {pending ? (
-        <div className="mx-auto max-w-md space-y-4 rounded-lg border border-gray-300 bg-gray-100 p-6 h-100 flex justify-center items-center">
+        <div className="mx-auto max-w-md space-y-4 rounded-lg p-6 h-[80vh] flex flex-col justify-center items-center">
+          <GiSoccerKick className="text-4xl" />
           <div className="inline-flex items-center gap-3">
             <svg
-              className="size-6 animate-spin text-indigo-600"
+              className="size-6 animate-spin text-blue-600"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -39,14 +41,13 @@ const NewMatchForm = () => {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-
-            <p className="font-medium text-gray-700">Saving Match...</p>
           </div>
+          <p className="font-medium text-gray-700">Saving Match...</p>
         </div>
       ) : (
         <Form
           action={formAction}
-          className="mx-auto max-w-md space-y-4 rounded-lg border border-gray-300 bg-gray-100 p-6"
+          className="mx-auto max-w-md space-y-4 rounded-lg p-6"
         >
           <h1 className="text-center font-medium text-2xl mb-5">
             Create a New Match

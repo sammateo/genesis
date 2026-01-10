@@ -7,9 +7,13 @@ const SecondaryButton = ({
   Icon,
   pill,
   loading,
+  onClick,
+  ref,
 }: ButtonInterface) => {
   return (
     <button
+      ref={ref}
+      onClick={onClick}
       disabled={loading}
       className={`flex items-center gap-2  
         ${pill ? "rounded-full" : "rounded-md"}

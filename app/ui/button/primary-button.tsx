@@ -1,6 +1,8 @@
+import { RefObject } from "react";
 import StandardLoadingIcon from "../loaders/StandardLoadingIcon";
 
 export interface ButtonInterface {
+  ref?: RefObject<HTMLButtonElement | null>;
   Icon?: React.ElementType;
   label: string;
   type?: "submit" | "reset" | "button" | undefined;
@@ -16,9 +18,11 @@ const PrimaryButton = ({
   pill,
   loading,
   onClick,
+  ref,
 }: ButtonInterface) => {
   return (
     <button
+      ref={ref}
       onClick={onClick}
       disabled={loading}
       className={`flex items-center gap-2  ${
