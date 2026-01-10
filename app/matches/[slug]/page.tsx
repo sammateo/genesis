@@ -5,6 +5,7 @@ import { getMatchDetails } from "../actions";
 import { TeamWithPlayers } from "@/types/extended-data-types";
 import JoinTeam from "@/app/components/team/join-team";
 import LeaveTeam from "@/app/components/team/leave-team";
+import Loading from "./loading";
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const session = await auth();
@@ -83,6 +84,8 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
     if (playerInTeam) return true;
     return false;
   };
+
+  // return <Loading />;
 
   return (
     <div>
