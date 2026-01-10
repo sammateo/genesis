@@ -27,6 +27,8 @@ const FindMatchForm = () => {
         placeholder="match code"
         required
         defaultValue={state?.inputs?.match_code}
+        maxLength={8}
+        onChange={() => {}}
       />
       <div className="flex justify-center">
         <PrimaryButton
