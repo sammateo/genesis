@@ -11,7 +11,7 @@ export default async function Home() {
     redirect("/matches");
   }
   return (
-    <div>
+    <div className="flex flex-col w-full overflow-hidden">
       <HomeLanding />
       <HomeBody />
     </div>

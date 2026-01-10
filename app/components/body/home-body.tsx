@@ -4,7 +4,7 @@ const HomeBody = () => {
   return (
     <div
       id="learnmore"
-      className="mx-auto w-screen max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:gap-4 lg:px-8 lg:py-32"
+      className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:gap-4 lg:px-8 lg:py-32"
     >
       <div className="space-y-2">
         <details className="group [&amp;_summary::-webkit-details-marker]:hidden">
