@@ -174,7 +174,7 @@ export const createMatch = async (
 
 export const getMatchDetails = async (
   matchId: string
-): Promise<MatchResponse> => {
+): Promise<MatchResponse | null> => {
   const session = await auth();
   if (!session || !session.user) {
     return null;
@@ -226,5 +226,132 @@ export const getMatchDetails = async (
   if (error) {
     console.error(error);
   }
+  return data;
+};
+
+export const getMatchesForUser = async (): Promise<MatchResponse[] | null> => {
+  const session = await auth();
+  if (!session || !session.user) {
+    return null;
+  }
+  const supabase = await createClient();
+  // get matches where user is a player
+  const { data: playerMatchesForUser, error: playerMatchesErrorForUser } =
+    await supabase
+      .from("match")
+      .select(
+        `
+    id,
+    name,
+    match_date,
+    location_name,
+    location_link,
+    match_code,
+    visibility,
+    team_size,
+    created_at,
+    updated_at,
+    creator_id,
+    teams:team!inner (
+      id,
+      name,
+      color,
+      score,
+      creator_id,
+      match_id,
+      created_at,
+      updated_at,
+      players:player!inner (
+        id,
+        user_id,
+        created_at,
+        updated_at,
+        team_id,
+        user:users!inner (
+          id,
+          name,
+          email,
+          image
+        )
+      )
+    )
+  `
+      )
+      .eq("teams.players.user_id", session.user.id);
+
+  if (playerMatchesErrorForUser) {
+    console.error(playerMatchesErrorForUser);
+  }
+
+  //get matches where user is creator
+  const { data: creatorMatchesForUser, error: creatorMatchesErrorForUser } =
+    await supabase
+      .from("match")
+      .select(
+        `
+    id,
+    name,
+    match_date,
+    location_name,
+    location_link,
+    match_code,
+    visibility,
+    team_size,
+    created_at,
+    updated_at,
+    creator_id
+  `
+      )
+      .eq("creator_id", session.user.id);
+
+  if (creatorMatchesErrorForUser) {
+    console.error(creatorMatchesErrorForUser);
+  }
+  //get all match details for both
+
+  const { data, error } = await supabase
+    .from("match")
+    .select(
+      `
+    id,
+    name,
+    match_date,
+    location_name,
+    location_link,
+    match_code,
+    visibility,
+    team_size,
+    created_at,
+    updated_at,
+    creator_id,
+    teams:team (
+      id,
+      name,
+      color,
+      score,
+      creator_id,
+      match_id,
+      created_at,
+      updated_at,
+      players:player (
+        id,
+        user_id,
+        created_at,
+        updated_at,
+        team_id,
+        user:users (
+          id,
+          name,
+          email,
+          image
+        )
+      )
+    )
+  `
+    )
+    .in("id", [
+      ...(playerMatchesForUser?.map((pMatch) => pMatch.id) || []),
+      ...(creatorMatchesForUser?.map((cMatch) => cMatch.id) || []),
+    ]);
   return data;
 };

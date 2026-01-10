@@ -7,54 +7,21 @@ import Link from "next/link";
 import { FaPlus, FaRegEyeSlash } from "react-icons/fa6";
 import PrimaryLink from "../ui/link/primary-link";
 import { LuMapPin } from "react-icons/lu";
-import { MatchWithSimpleTeams } from "@/types/extended-data-types";
+import {
+  MatchResponse,
+  MatchWithSimpleTeams,
+} from "@/types/extended-data-types";
 import { MdOutlinePublic } from "react-icons/md";
 import { HiSearch } from "react-icons/hi";
 import SecondaryLink from "../ui/link/secondary-link";
+import { getMatchesForUser } from "./actions";
 
 const page = async () => {
   const session = await auth();
   if (!session || !session.user) {
     redirect("/");
   }
-  const supabase = await createClient();
-  let matches: MatchWithSimpleTeams[];
-  let { data, error } = await supabase
-    .from("match")
-    .select(
-      `
-      id,
-    name,
-    match_date,
-    location_name,
-    location_link,
-    match_code,
-    visibility,
-    team_size,
-    created_at,
-    updated_at,
-    creator_id,
-    teams:team (
-      id,
-      name,
-      color,
-      score,
-      creator_id,
-      match_id,
-      created_at,
-      updated_at
-    )
-      `
-    )
-    .eq("creator_id", session.user.id)
-    .order("match_date", {
-      ascending: false,
-    });
-  if (error) {
-    console.error(error);
-    return <div>An error occurred</div>;
-  }
-  matches = data as MatchWithSimpleTeams[];
+  const matches = await getMatchesForUser();
   return (
     <div>
       <Header />
@@ -116,7 +83,7 @@ const page = async () => {
                           className="hover:underline"
                         >
                           {" "}
-                          {match.teams[0].name} vs {match.teams[1].name}{" "}
+                          {match.teams[0]?.name} vs {match.teams[1]?.name}{" "}
                         </Link>
                       </h3>
 

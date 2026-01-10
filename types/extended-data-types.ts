@@ -1,6 +1,6 @@
 import { Match, Player, Team, User } from "./data-types";
 
-export type MatchResponse = MatchWithTeams | null;
+export type MatchResponse = MatchWithTeams;
 
 export interface MatchWithSimpleTeams extends Match {
   teams: Team[];
