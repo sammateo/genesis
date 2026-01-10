@@ -20,7 +20,7 @@ const LeaveTeam = ({
   );
   return (
     <form action={formAction}>
-      <SecondaryButton loading={pending} type="submit" label="Leave Team" />
+      <SecondaryButton loading={pending} type="submit" label="Leave" />
     </form>
   );
 };

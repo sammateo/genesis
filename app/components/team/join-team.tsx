@@ -15,7 +15,7 @@ const JoinTeam = ({ matchId, teamId }: { matchId: string; teamId: string }) => {
 
   return (
     <form action={formAction}>
-      <PrimaryButton loading={pending} type="submit" label="Join Team" />
+      <PrimaryButton loading={pending} type="submit" label="Join" />
     </form>
   );
 };
