@@ -7,6 +7,9 @@ import MatchOverview from "@/app/components/match/match-overview/match-overview"
 import MatchSummary from "@/app/components/match/match-summary/match-summary";
 import MatchLineup from "@/app/components/match/match-lineup/match-lineup";
 import CreatorControls from "@/app/components/match/creator-controls/creator-controls";
+import { GiSoccerKick } from "react-icons/gi";
+import SecondaryLink from "@/app/ui/link/secondary-link";
+import { GoArrowLeft } from "react-icons/go";
 
 const isTeamFull = (
   completeData: MatchWithTeams | null,
@@ -99,8 +102,14 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
       </div>
 
       {!completeData && (
-        <div>
-          <h2>Match Not Found</h2>
+        <div className="h-[80vh] flex flex-col gap-5 justify-center items-center">
+          <GiSoccerKick className="text-5xl" />
+          <h2 className="text-2xl font-medium">Match Not Found</h2>
+          <SecondaryLink
+            Icon={GoArrowLeft}
+            label={"Back to Home"}
+            href={"/matches"}
+          />
         </div>
       )}
 

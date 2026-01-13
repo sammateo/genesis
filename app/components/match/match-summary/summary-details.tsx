@@ -5,18 +5,31 @@ export interface SummaryDetailsInterface {
   title: string;
   data: string;
   copyEnabled?: boolean;
+  isLink?: boolean;
+  link?: string;
 }
 const SummaryDetails = ({ completeData }: { completeData: MatchWithTeams }) => {
-  const summaryDetails = [
-    { title: "Match Name", data: completeData.name },
-    { title: "Match Code", data: completeData.match_code },
+  const summaryDetails: SummaryDetailsInterface[] = [
+    { title: "Match Name", data: completeData.name || "" },
+    {
+      title: "Match Code",
+      data: completeData.match_code || "",
+      copyEnabled: true,
+    },
     {
       title: "Match Date",
       data: completeData.match_date
         ? new Date(completeData.match_date).toLocaleString()
         : "no match date specified",
     },
-    { title: "Location", data: completeData.location_name },
+    {
+      title: "Location",
+      data: completeData.location_name || "",
+      isLink:
+        completeData.location_link != null &&
+        completeData.location_link?.trim()?.length > 0,
+      link: completeData.location_link?.trim(),
+    },
     // { title: "Status", data: completeData. },
     {
       title: "Score",
@@ -34,6 +47,9 @@ const SummaryDetails = ({ completeData }: { completeData: MatchWithTeams }) => {
             key={summaryDetail.title}
             title={summaryDetail.title}
             data={summaryDetail.data || ""}
+            copyEnabled={summaryDetail.copyEnabled}
+            isLink={summaryDetail.isLink}
+            link={summaryDetail.link}
           />
         ))}
       </dl>

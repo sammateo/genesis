@@ -1,25 +1,27 @@
 "use client";
-import { updateMatchName } from "@/app/matches/creator-controls/actions";
 import PrimaryButton from "@/app/ui/button/primary-button";
 import SecondaryButton from "@/app/ui/button/secondary-button";
 import { useActionState, useRef } from "react";
+import { updateLocation } from "./actions";
 const initialState = {
   success: false,
   message: "",
 };
-const MatchNameModal = ({
+const LocationModal = ({
   matchId,
-  matchName,
+  locationName,
+  locationPin,
   closeModal,
 }: {
   matchId: string;
-  matchName: string;
+  locationName: string;
+  locationPin: string;
   closeModal: () => void;
 }) => {
-  const UpdateMatchWithId = updateMatchName.bind(null, { matchId });
+  const UpdateLocationWithId = updateLocation.bind(null, { matchId });
 
   const [state, formAction, pending] = useActionState(
-    UpdateMatchWithId,
+    UpdateLocationWithId,
     initialState
   );
 
@@ -78,11 +80,18 @@ const MatchNameModal = ({
               </span>
 
               <input
-                id="match_name"
-                name="match_name"
+                id="location_name"
+                name="location_name"
                 type="text"
                 className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-2"
-                defaultValue={matchName}
+                defaultValue={locationName}
+              />
+              <input
+                id="location_pin"
+                name="location_pin"
+                type="text"
+                className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-2"
+                defaultValue={locationPin}
               />
             </label>
           </div>
@@ -97,10 +106,8 @@ const MatchNameModal = ({
           </footer>
         </form>
       </div>
-
-      <span id="PING_IFRAME_FORM_DETECTION" style={{ display: "none" }}></span>
     </div>
   );
 };
 
-export default MatchNameModal;
+export default LocationModal;

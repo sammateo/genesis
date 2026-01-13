@@ -3,10 +3,14 @@
 import { MatchWithTeams } from "@/types/extended-data-types";
 import SecondaryButton from "@/app/ui/button/secondary-button";
 import { useState } from "react";
-import MatchNameModal from "./forms/match-name-modal";
+import MatchNameModal from "./forms/match-name/match-name-modal";
+import MatchDateModal from "./forms/match-date/match-date-modal";
+import LocationModal from "./forms/location/location-modal";
 
 export enum CREATOR_CONTROL_MODALS {
   MATCH_NAME,
+  MATCH_DATE,
+  LOCATION,
 }
 
 export interface SummaryDetailsInterface {
@@ -20,13 +24,9 @@ const CreatorControlDetails = ({
   completeData: MatchWithTeams;
 }) => {
   const creatorControlDetails = [
-    { title: "Match Name", data: completeData.name },
-    // {
-    //   title: "Match Date",
-    //   data: completeData.match_date
-    //     ? new Date(completeData.match_date).toLocaleString()
-    //     : "no match date specified",
-    // },
+    { title: "Match Name", modal_name: CREATOR_CONTROL_MODALS.MATCH_NAME },
+    { title: "Match Date", modal_name: CREATOR_CONTROL_MODALS.MATCH_DATE },
+    { title: "Location", modal_name: CREATOR_CONTROL_MODALS.LOCATION },
     // { title: "Location", data: completeData.location_name },
     // // { title: "Status", data: completeData. },
     // {
@@ -59,7 +59,7 @@ const CreatorControlDetails = ({
             <dd className="text-gray-600 sm:col-span-1">
               <SecondaryButton
                 label={"Update"}
-                onClick={() => setShowModal(CREATOR_CONTROL_MODALS.MATCH_NAME)}
+                onClick={() => setShowModal(creatorControlDetail.modal_name)}
               />
             </dd>
           </div>
@@ -69,6 +69,21 @@ const CreatorControlDetails = ({
         <MatchNameModal
           matchId={completeData.id}
           matchName={completeData.name || ""}
+          closeModal={closeCreatorControlModal}
+        />
+      )}
+      {showModal === CREATOR_CONTROL_MODALS.MATCH_DATE && (
+        <MatchDateModal
+          matchId={completeData.id}
+          matchDate={completeData.match_date || ""}
+          closeModal={closeCreatorControlModal}
+        />
+      )}
+      {showModal === CREATOR_CONTROL_MODALS.LOCATION && (
+        <LocationModal
+          matchId={completeData.id}
+          locationName={completeData.location_name || ""}
+          locationPin={completeData.location_link || ""}
           closeModal={closeCreatorControlModal}
         />
       )}

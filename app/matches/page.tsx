@@ -164,6 +164,7 @@ const page = async () => {
                           {match.location_link ? (
                             <a
                               href={match.location_link}
+                              target="_blank"
                               className="text-xs font-medium"
                             >
                               {match.location_name}
