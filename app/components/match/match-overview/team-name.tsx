@@ -1,6 +1,6 @@
 const TeamName = ({ name, color }: { name: string; color: string }) => {
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center text-center gap-4">
       <svg
         width="55"
         height="55"

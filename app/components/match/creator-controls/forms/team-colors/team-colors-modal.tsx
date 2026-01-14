@@ -1,26 +1,39 @@
 "use client";
-import { updateMatchStatus } from "@/app/components/match/creator-controls/forms/match-status/actions";
 import PrimaryButton from "@/app/ui/button/primary-button";
 import SecondaryButton from "@/app/ui/button/secondary-button";
-import { StatusVariant, StatusVariants } from "@/types/data-types";
 import { useActionState, useRef } from "react";
+import { updateTeamColors } from "./actions";
 const initialState = {
   success: false,
   message: "",
 };
-const MatchStatusModal = ({
+const TeamColorModal = ({
   matchId,
-  matchStatus,
+  teamAScoreDetails,
+  teamBScoreDetails,
   closeModal,
 }: {
   matchId: string;
-  matchStatus: StatusVariant;
+  teamAScoreDetails: {
+    teamId: string;
+    teamName: string;
+    teamColor: string;
+  };
+  teamBScoreDetails: {
+    teamId: string;
+    teamName: string;
+    teamColor: string;
+  };
   closeModal: () => void;
 }) => {
-  const UpdateMatchStatusWithId = updateMatchStatus.bind(null, { matchId });
+  const UpdateTeamColorsWithId = updateTeamColors.bind(null, {
+    matchId,
+    teamAId: teamAScoreDetails.teamId,
+    teamBId: teamBScoreDetails.teamId,
+  });
 
   const [state, formAction, pending] = useActionState(
-    UpdateMatchStatusWithId,
+    UpdateTeamColorsWithId,
     initialState
   );
 
@@ -46,7 +59,7 @@ const MatchStatusModal = ({
               id="modalTitle"
               className="text-xl font-bold text-gray-900 sm:text-2xl"
             >
-              Status
+              Team Names
             </h2>
 
             <button
@@ -77,18 +90,28 @@ const MatchStatusModal = ({
               <span className="text-sm font-medium text-gray-700">
                 Click "Done" to complete update
               </span>
-              <select
-                defaultValue={matchStatus}
-                id="match_status"
-                name="match_status"
-                className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-2"
-              >
-                {StatusVariants.map((variant) => (
-                  <option key={variant} value={variant}>
-                    {variant}
-                  </option>
-                ))}
-              </select>
+              <div className="grid grid-cols-2 gap-5">
+                <div className="flex flex-col items-center">
+                  <span>{teamAScoreDetails.teamName}</span>
+                  <input
+                    id="team_a_color"
+                    name="team_a_color"
+                    type="color"
+                    className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-1"
+                    defaultValue={`#${teamAScoreDetails.teamColor}`}
+                  />
+                </div>
+                <div className="flex flex-col items-center">
+                  <span>{teamBScoreDetails.teamName}</span>
+                  <input
+                    id="team_b_color"
+                    name="team_b_color"
+                    type="color"
+                    className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-1"
+                    defaultValue={`#${teamBScoreDetails.teamColor}`}
+                  />
+                </div>
+              </div>
             </label>
           </div>
 
@@ -106,4 +129,4 @@ const MatchStatusModal = ({
   );
 };
 
-export default MatchStatusModal;
+export default TeamColorModal;

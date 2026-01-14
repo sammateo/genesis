@@ -47,7 +47,7 @@ const LocationModal = ({
               id="modalTitle"
               className="text-xl font-bold text-gray-900 sm:text-2xl"
             >
-              Match Name
+              Location
             </h2>
 
             <button

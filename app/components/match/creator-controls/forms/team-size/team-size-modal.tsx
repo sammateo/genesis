@@ -1,26 +1,25 @@
 "use client";
-import { updateMatchStatus } from "@/app/components/match/creator-controls/forms/match-status/actions";
 import PrimaryButton from "@/app/ui/button/primary-button";
 import SecondaryButton from "@/app/ui/button/secondary-button";
-import { StatusVariant, StatusVariants } from "@/types/data-types";
 import { useActionState, useRef } from "react";
+import { updateTeamSize } from "./actions";
 const initialState = {
   success: false,
   message: "",
 };
-const MatchStatusModal = ({
+const TeamSizeModal = ({
   matchId,
-  matchStatus,
+  teamSize,
   closeModal,
 }: {
   matchId: string;
-  matchStatus: StatusVariant;
+  teamSize: number | null;
   closeModal: () => void;
 }) => {
-  const UpdateMatchStatusWithId = updateMatchStatus.bind(null, { matchId });
+  const UpdateTeamSizeWithId = updateTeamSize.bind(null, { matchId });
 
   const [state, formAction, pending] = useActionState(
-    UpdateMatchStatusWithId,
+    UpdateTeamSizeWithId,
     initialState
   );
 
@@ -46,7 +45,7 @@ const MatchStatusModal = ({
               id="modalTitle"
               className="text-xl font-bold text-gray-900 sm:text-2xl"
             >
-              Status
+              Team Size
             </h2>
 
             <button
@@ -77,18 +76,14 @@ const MatchStatusModal = ({
               <span className="text-sm font-medium text-gray-700">
                 Click "Done" to complete update
               </span>
-              <select
-                defaultValue={matchStatus}
-                id="match_status"
-                name="match_status"
+
+              <input
+                id="team_size"
+                name="team_size"
+                type="number"
                 className="mt-1 w-full rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white px-4 py-2"
-              >
-                {StatusVariants.map((variant) => (
-                  <option key={variant} value={variant}>
-                    {variant}
-                  </option>
-                ))}
-              </select>
+                defaultValue={teamSize || undefined}
+              />
             </label>
           </div>
 
@@ -106,4 +101,4 @@ const MatchStatusModal = ({
   );
 };
 
-export default MatchStatusModal;
+export default TeamSizeModal;
