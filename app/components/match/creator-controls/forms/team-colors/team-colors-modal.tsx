@@ -59,7 +59,7 @@ const TeamColorModal = ({
               id="modalTitle"
               className="text-xl font-bold text-gray-900 sm:text-2xl"
             >
-              Team Names
+              Team Colors
             </h2>
 
             <button
