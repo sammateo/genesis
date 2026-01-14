@@ -6,11 +6,13 @@ import { useState } from "react";
 import MatchNameModal from "./forms/match-name/match-name-modal";
 import MatchDateModal from "./forms/match-date/match-date-modal";
 import LocationModal from "./forms/location/location-modal";
+import ScoreModal from "./forms/score/score-modal";
 
 export enum CREATOR_CONTROL_MODALS {
   MATCH_NAME,
   MATCH_DATE,
   LOCATION,
+  SCORE,
 }
 
 export interface SummaryDetailsInterface {
@@ -27,6 +29,7 @@ const CreatorControlDetails = ({
     { title: "Match Name", modal_name: CREATOR_CONTROL_MODALS.MATCH_NAME },
     { title: "Match Date", modal_name: CREATOR_CONTROL_MODALS.MATCH_DATE },
     { title: "Location", modal_name: CREATOR_CONTROL_MODALS.LOCATION },
+    { title: "Score", modal_name: CREATOR_CONTROL_MODALS.SCORE },
     // { title: "Location", data: completeData.location_name },
     // // { title: "Status", data: completeData. },
     // {
@@ -84,6 +87,22 @@ const CreatorControlDetails = ({
           matchId={completeData.id}
           locationName={completeData.location_name || ""}
           locationPin={completeData.location_link || ""}
+          closeModal={closeCreatorControlModal}
+        />
+      )}
+      {showModal === CREATOR_CONTROL_MODALS.SCORE && (
+        <ScoreModal
+          matchId={completeData.id}
+          teamAScoreDetails={{
+            teamId: completeData.teams[0].id,
+            teamName: completeData.teams[0].name || "",
+            teamScore: completeData.teams[0].score || 0,
+          }}
+          teamBScoreDetails={{
+            teamId: completeData.teams[1].id,
+            teamName: completeData.teams[1].name || "",
+            teamScore: completeData.teams[1].score || 0,
+          }}
           closeModal={closeCreatorControlModal}
         />
       )}
