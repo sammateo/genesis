@@ -7,6 +7,15 @@ export interface User {
   updated_at: string; // ISO timestamp
 }
 
+export const StatusVariants = [
+  "scheduled",
+  "in progress",
+  "completed",
+  "cancelled",
+] as const;
+
+export type StatusVariant = (typeof StatusVariants)[number];
+
 export interface Match {
   id: string;
   name: string | null;
@@ -19,6 +28,7 @@ export interface Match {
   team_size: number | null;
   created_at: string;
   updated_at: string;
+  status: StatusVariant; //"scheduled" | "in progress" | "completed" | "cancelled";
 }
 
 export interface Team {

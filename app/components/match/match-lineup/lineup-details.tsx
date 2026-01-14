@@ -1,12 +1,15 @@
 import { TeamWithPlayers } from "@/types/extended-data-types";
 import LeaveTeam from "../../team/leave-team";
+import { StatusVariant } from "@/types/data-types";
 
 const LineupDetails = ({
   team,
   user_id,
+  matchStatus,
 }: {
   team: TeamWithPlayers;
   user_id: string;
+  matchStatus: StatusVariant;
 }) => {
   return (
     <div className="flow-root">
@@ -20,9 +23,11 @@ const LineupDetails = ({
             >
               <dt className="font-medium text-gray-900">{player.user?.name}</dt>
               <dd className="text-gray-600 sm:col-span-1">
-                {player.user_id === user_id && (
-                  <LeaveTeam teamId={team.id} matchId={team.match_id || ""} />
-                )}
+                {player.user_id === user_id &&
+                  matchStatus !== "cancelled" &&
+                  matchStatus !== "completed" && (
+                    <LeaveTeam teamId={team.id} matchId={team.match_id || ""} />
+                  )}
               </dd>
             </div>
           ))}

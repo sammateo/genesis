@@ -7,12 +7,14 @@ import MatchNameModal from "./forms/match-name/match-name-modal";
 import MatchDateModal from "./forms/match-date/match-date-modal";
 import LocationModal from "./forms/location/location-modal";
 import ScoreModal from "./forms/score/score-modal";
+import MatchStatusModal from "./forms/match-status/match-status-modal";
 
 export enum CREATOR_CONTROL_MODALS {
   MATCH_NAME,
   MATCH_DATE,
   LOCATION,
   SCORE,
+  STATUS,
 }
 
 export interface SummaryDetailsInterface {
@@ -30,6 +32,7 @@ const CreatorControlDetails = ({
     { title: "Match Date", modal_name: CREATOR_CONTROL_MODALS.MATCH_DATE },
     { title: "Location", modal_name: CREATOR_CONTROL_MODALS.LOCATION },
     { title: "Score", modal_name: CREATOR_CONTROL_MODALS.SCORE },
+    { title: "Status", modal_name: CREATOR_CONTROL_MODALS.STATUS },
     // { title: "Location", data: completeData.location_name },
     // // { title: "Status", data: completeData. },
     // {
@@ -103,6 +106,13 @@ const CreatorControlDetails = ({
             teamName: completeData.teams[1].name || "",
             teamScore: completeData.teams[1].score || 0,
           }}
+          closeModal={closeCreatorControlModal}
+        />
+      )}
+      {showModal === CREATOR_CONTROL_MODALS.STATUS && (
+        <MatchStatusModal
+          matchId={completeData.id}
+          matchStatus={completeData.status}
           closeModal={closeCreatorControlModal}
         />
       )}

@@ -53,6 +53,15 @@ export const canUserJoinTeam = (
   if (!completeData) {
     return false;
   }
+
+  //if the match is cancelled or completed, the user cannot join a team
+  if (
+    completeData.status === "completed" ||
+    completeData.status === "cancelled"
+  ) {
+    return false;
+  }
+
   // if the the team is not full (team is full if team_size is equal to number of players on the team)
   if (isTeamFull(completeData, team)) {
     return false;
@@ -132,10 +141,12 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                 <MatchLineup
                   team={completeData.teams[0]}
                   user_id={session.user.id}
+                  matchStatus={completeData.status}
                 />
                 <MatchLineup
                   team={completeData.teams[1]}
                   user_id={session.user.id}
+                  matchStatus={completeData.status}
                 />
               </div>
               {completeData.creator_id === session.user.id && (

@@ -30,14 +30,17 @@ const SummaryDetails = ({ completeData }: { completeData: MatchWithTeams }) => {
         completeData.location_link?.trim()?.length > 0,
       link: completeData.location_link?.trim(),
     },
-    // { title: "Status", data: completeData. },
+    { title: "Status", data: completeData.status },
     {
       title: "Score",
       data: `${completeData.teams[0].score || "0"} - ${
         completeData.teams[1].score || "0"
       }`,
     },
-    { title: "Size", data: `${completeData.team_size || "not specified"}` },
+    {
+      title: "Team Size",
+      data: `${completeData.team_size || "not specified"}`,
+    },
   ];
   return (
     <div className="flow-root">

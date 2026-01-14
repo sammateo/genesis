@@ -78,6 +78,7 @@ export const createMatch = async (
     team_size: formData.get("team_size")?.valueOf() as number | null,
     created_at: "",
     updated_at: "",
+    status: "scheduled",
   };
 
   const { data: matchData, error } = await supabase
@@ -195,6 +196,7 @@ export const getMatchDetails = async (
     created_at,
     updated_at,
     creator_id,
+    status,
     teams:team (
       id,
       name,
@@ -324,6 +326,7 @@ export const getMatchesForUser = async (): Promise<MatchResponse[] | null> => {
     created_at,
     updated_at,
     creator_id,
+    status,
     teams:team (
       id,
       name,

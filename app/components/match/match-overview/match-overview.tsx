@@ -23,6 +23,9 @@ const MatchOverview = ({
         )}
       </div>
       <div className="flex flex-col items-center gap-2 text-center">
+        <span className="text-xs bg-blue-700 text-white px-2 py-1 rounded-md">
+          {completeData.status}
+        </span>
         <span className="text-sm font-semibold">
           {completeData.match_date
             ? new Date(completeData.match_date).toLocaleString()

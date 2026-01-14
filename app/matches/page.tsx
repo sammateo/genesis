@@ -9,6 +9,7 @@ import { MdOutlinePublic } from "react-icons/md";
 import { HiSearch } from "react-icons/hi";
 import SecondaryLink from "../ui/link/secondary-link";
 import { getMatchesForUser } from "./actions";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const page = async () => {
   const session = await auth();
@@ -101,7 +102,7 @@ const page = async () => {
 
                     <div>
                       <strong className="rounded-sm border border-blue-500 bg-blue-500 px-3 py-1.5 text-[10px] font-medium text-white">
-                        {match.name}
+                        {match.status}
                       </strong>
                       <div className="text-xs text-gray-500 my-2">
                         {match.visibility === "public" ? (
@@ -126,10 +127,7 @@ const page = async () => {
                         </Link>
                       </h3>
 
-                      <p className="mt-1 text-sm text-gray-700">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit.
-                      </p>
+                      <p className="mt-1 text-sm text-gray-700">{match.name}</p>
 
                       <div className="mt-4 sm:flex sm:items-center sm:gap-2">
                         <div className="flex items-center gap-1 text-gray-500">
@@ -165,9 +163,10 @@ const page = async () => {
                             <a
                               href={match.location_link}
                               target="_blank"
-                              className="text-xs font-medium"
+                              className="flex items-center gap-1 text-xs font-medium underline"
                             >
                               {match.location_name}
+                              <FaExternalLinkAlt />
                             </a>
                           ) : (
                             <p className="text-xs font-medium">
